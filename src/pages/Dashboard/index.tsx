@@ -27,7 +27,8 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadFoods(): Promise<void> {
-      // TODO LOAD FOODS
+      const response = await api.get('foods');
+      setFoods(response.data);
     }
 
     loadFoods();
@@ -37,7 +38,17 @@ const Dashboard: React.FC = () => {
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
     try {
-      // TODO ADD A NEW FOOD PLATE TO THE API
+      const id = foods[foods.length - 1] ? foods[foods.length - 1].id + 1 : 1;
+      const foodData = {
+        id,
+        name: food.name,
+        description: food.description,
+        price: food.price,
+        available: true,
+        image: food.image,
+      };
+      await api.post('foods', foodData);
+      setFoods([...foods, foodData]);
     } catch (err) {
       console.log(err);
     }
@@ -46,11 +57,33 @@ const Dashboard: React.FC = () => {
   async function handleUpdateFood(
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
-    // TODO UPDATE A FOOD PLATE ON THE API
+    const updateFoodList = foods.map(foodUpdate => {
+      if (foodUpdate.id !== editingFood.id) {
+        return foodUpdate;
+      }
+
+      return {
+        ...food,
+        id: editingFood.id,
+        available: editingFood.available,
+      };
+    });
+
+    await api.put(`foods/${editingFood.id}`, {
+      ...food,
+      id: editingFood.id,
+      available: editingFood.available,
+    });
+
+    setFoods(updateFoodList);
   }
 
   async function handleDeleteFood(id: number): Promise<void> {
-    // TODO DELETE A FOOD PLATE FROM THE API
+    await api.delete(`foods/${id}`);
+
+    const deleteFoodList = foods.filter(deleteFood => deleteFood.id !== id);
+
+    setFoods(deleteFoodList);
   }
 
   function toggleModal(): void {
@@ -62,7 +95,8 @@ const Dashboard: React.FC = () => {
   }
 
   function handleEditFood(food: IFoodPlate): void {
-    // TODO SET THE CURRENT EDITING FOOD ID IN THE STATE
+    setEditingFood(food);
+    toggleEditModal();
   }
 
   return (

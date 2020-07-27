@@ -23,6 +23,30 @@
       "price": "25.90",
       "available": true,
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png"
+    },
+    {
+      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food1.png",
+      "name": "Teste food",
+      "price": "10.00",
+      "description": "Teste de novo prato",
+      "id": 4,
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "outro prato de teste",
+      "description": "mais um para testar",
+      "price": "22.50",
+      "available": true,
+      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png"
+    },
+    {
+      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png",
+      "name": "Esfiha de carne",
+      "price": "15.30",
+      "description": "esfiha de carne bovina",
+      "id": 6,
+      "available": true
     }
   ]
 }
